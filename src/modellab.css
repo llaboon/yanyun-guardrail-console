@@ -1,0 +1,32 @@
+/* Model Lab page styles */
+.pill.warn{background:#fdf3e0;color:#946614}
+.metric.mlab-card{cursor:pointer;text-align:left;font:inherit;align-content:start}
+.metric.mlab-card small.pill{justify-self:start}
+.metric.mlab-active{border-color:#14744e;box-shadow:0 0 0 2px #14744e22}
+.mlab-panel{padding-bottom:16px}
+.mlab-panel .panel-title{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:18px 18px 0}
+.mlab-panel .panel-title h2{margin:0 0 6px;font-size:15px}
+.mlab-panel .panel-title p{margin:0;color:#757c84;font-size:12px;line-height:1.6}
+.mlab-panel .panel-title svg{flex:none;color:#94a0ab}
+.mlab-form{display:grid;gap:10px;padding:14px 18px 0}
+.mlab-form textarea{border:1px solid #d7dbe0;border-radius:6px;padding:10px;font:inherit;font-size:12px;resize:vertical;min-height:96px}
+.mlab-form .btn{justify-self:start}
+.mlab-samples{display:flex;gap:8px;flex-wrap:wrap}
+.mlab-samples button{border:1px solid #d7dbe0;background:#f5f6f7;border-radius:999px;padding:5px 12px;font-size:11px;cursor:pointer}
+.mlab-samples button:hover{background:#e9ecef}
+.mlab-result{display:grid;gap:10px;padding:14px 18px 0}
+.mlab-decision{display:flex;align-items:center;gap:10px}
+.mlab-decision b{font-size:12px}
+.mlab-decision small{color:#8a939c;font-size:11px}
+.mlab-bar-row{display:grid;grid-template-columns:110px 1fr 42px;align-items:center;gap:10px;font-size:11px;color:#5c646c}
+.mlab-bar{height:6px;background:#eceef1;border-radius:4px;overflow:hidden}
+.mlab-bar i{display:block;height:100%;border-radius:4px;transition:width .25s}
+.mlab-bar .risk-fill{background:#c73e49}
+.mlab-bar .safe-fill{background:#168258}
+.mlab-bar-row b{text-align:right}
+.mlab-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 18px}
+.mlab-metrics>div{border:1px solid #e0e3e7;border-radius:6px;padding:10px 12px;display:grid;gap:6px}
+.mlab-metrics span{font-size:10px;color:#757c84}
+.mlab-metrics b{font-size:14px}
+.mlab-panel .result-block,.mlab-panel .state{margin:0 18px}
+.mlab-panel .notice{margin:2px 0 0}
