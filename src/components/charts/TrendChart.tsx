@@ -53,10 +53,17 @@ export function TrendChart({ data, height = 220, color = CHART_COLOR, unit = 'ä»
   };
 
   const shown = active ?? null;
+  const gradId = useMemo(() => `trend-area-${Math.random().toString(36).slice(2, 8)}`, []);
   return (
     <div className="viz-wrap" ref={wrapRef} style={{ height }}>
       {width > 0 && (
         <svg width={width} height={height} role="img" aria-label={`${label}è¶‹åŠ¿`} tabIndex={0} onKeyDown={onKey} onBlur={() => setActive(null)} className="viz-svg">
+          <defs>
+            <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={color} stopOpacity="0.24" />
+              <stop offset="100%" stopColor={color} stopOpacity="0.01" />
+            </linearGradient>
+          </defs>
           {ticks.map(t => (
             <g key={t}>
               <line x1={margin.left} x2={width - margin.right} y1={y(t)} y2={y(t)} className={t === 0 ? 'viz-baseline' : 'viz-grid'} />
@@ -66,8 +73,8 @@ export function TrendChart({ data, height = 220, color = CHART_COLOR, unit = 'ä»
           {data.map((d, i) => (i % labelEvery === 0 || i === last) && (
             <text key={d.dimension} x={x(i)} y={height - 8} className="viz-tick" textAnchor={i === 0 ? 'start' : i === last ? 'end' : 'middle'}>{shortDay(d.dimension)}</text>
           ))}
-          {area && <path d={area} fill={color} opacity={0.1} />}
-          {line && <path d={line} fill="none" stroke={color} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />}
+          {area && <path d={area} fill={`url(#${gradId})`} />}
+          {line && <path d={line} fill="none" stroke={color} strokeWidth={2.5} strokeLinejoin="round" strokeLinecap="round" />}
           {shown != null && <line x1={x(shown)} x2={x(shown)} y1={margin.top} y2={margin.top + plotH} className="viz-cross" />}
           {last >= 0 && (
             <g>

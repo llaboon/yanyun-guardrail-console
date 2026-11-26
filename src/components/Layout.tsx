@@ -14,21 +14,24 @@ export interface NavItem {
   path: string;
   icon: LucideIcon;
   title: string;
+  group: string;
 }
 
 export const NAV: NavItem[] = [
-  { path: '/overview', icon: LayoutDashboard, title: '系统总览' },
-  { path: '/monitor', icon: Activity, title: '运行监控' },
-  { path: '/risk', icon: BarChart3, title: '风险报表' },
-  { path: '/business', icon: Server, title: '业务接入' },
-  { path: '/abilities', icon: Blocks, title: '安全能力' },
-  { path: '/strategy', icon: GitBranch, title: 'DAG 策略' },
-  { path: '/data', icon: Database, title: '数据治理' },
-  { path: '/diagnostics', icon: Settings2, title: '配置诊断' },
-  { path: '/ai', icon: Bot, title: 'AI 交互' },
-  { path: '/modellab', icon: FlaskConical, title: '模型实验室' },
-  { path: '/users', icon: Users, title: '用户管理' },
+  { path: '/overview', icon: LayoutDashboard, title: '系统总览', group: '态势监控' },
+  { path: '/monitor', icon: Activity, title: '运行监控', group: '态势监控' },
+  { path: '/risk', icon: BarChart3, title: '风险报表', group: '态势监控' },
+  { path: '/business', icon: Server, title: '业务接入', group: '防护编排' },
+  { path: '/abilities', icon: Blocks, title: '安全能力', group: '防护编排' },
+  { path: '/strategy', icon: GitBranch, title: 'DAG 策略', group: '防护编排' },
+  { path: '/data', icon: Database, title: '数据治理', group: '防护编排' },
+  { path: '/ai', icon: Bot, title: 'AI 交互', group: '验证与运维' },
+  { path: '/modellab', icon: FlaskConical, title: '模型实验室', group: '验证与运维' },
+  { path: '/diagnostics', icon: Settings2, title: '配置诊断', group: '验证与运维' },
+  { path: '/users', icon: Users, title: '用户管理', group: '验证与运维' },
 ];
+
+const NAV_GROUPS = ['态势监控', '防护编排', '验证与运维'] as const;
 
 export function Login() {
   const { login } = useAuth();
@@ -69,13 +72,21 @@ function Sidebar({ open, onNavigate }: { open: boolean; onNavigate: () => void }
   const { username, role, logout } = useAuth();
   return (
     <aside className={`sidebar ${open ? 'open' : ''}`}>
-      <div className="brand"><ShieldCheck /><div><b>{BRAND}</b><span>{BRAND_EN}</span></div></div>
+      <div className="brand">
+        <span className="brand-badge"><ShieldCheck /></span>
+        <div><b>{BRAND}</b><span>{BRAND_EN}</span></div>
+      </div>
       <div className="env"><i /><div><b>{DEMO_MODE ? '演示环境' : '运行环境'}</b><span>{DEMO_MODE ? '内置示例数据 · 未连接真实服务' : 'Docker Compose · default'}</span></div></div>
-      <nav>
-        {NAV.map(({ path, icon: Icon, title }) => (
-          <NavLink key={path} to={path} onClick={onNavigate} className={({ isActive }) => (isActive ? 'active' : '')}>
-            <Icon />{title}
-          </NavLink>
+      <nav aria-label="主导航">
+        {NAV_GROUPS.map(group => (
+          <div className="side-group" key={group}>
+            <div className="side-group-title">{group}</div>
+            {NAV.filter(item => item.group === group).map(({ path, icon: Icon, title }) => (
+              <NavLink key={path} to={path} onClick={onNavigate} className={({ isActive }) => (isActive ? 'active' : '')}>
+                <Icon /><span>{title}</span>
+              </NavLink>
+            ))}
+          </div>
         ))}
       </nav>
       <div className="account">
